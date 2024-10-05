@@ -1,0 +1,15 @@
+<form action="" class="agregar" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form }}
+
+    <button type="submit" class="button">Enviar</button>
+</form>
+
+{% if mensaje %}
+    <p>{{ mensaje }}</p>
+{% endif %}
+
+{% if qr_url %}
+    <h3>Código QR generado:</h3>
+    <img src="{{ qr_url }}" alt="Código QR">
+{% endif %}
