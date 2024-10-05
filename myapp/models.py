@@ -17,7 +17,6 @@ class Agregar(models.Model):
     fecha= models.DateField()
     Imagen= models.ImageField(upload_to="static/imagenes", null=True)
 
-    #imagenes= models.ImageField(upload_to="imagenes", null=True)
     
     def __str__(self):
         return self.titulo
