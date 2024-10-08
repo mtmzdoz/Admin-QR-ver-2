@@ -1,3 +1,0 @@
-En la terminal escribir pip install (requerimiento)
-pillow
-qrcode[pil]
