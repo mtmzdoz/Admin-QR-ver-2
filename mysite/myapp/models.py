@@ -15,7 +15,7 @@ class Agregar(models.Model):
     pieza= models.IntegerField(choices= opciones_pieza)
     descripcion= models.TextField(max_length=255) #TextField para textos largos
     fecha= models.DateField()
-    Imagen= models.ImageField(upload_to="imagenes", null=True)
+    Imagen= models.ImageField(upload_to="media/imagenes", null=True)
 
     #imagenes= models.ImageField(upload_to="imagenes", null=True)
     

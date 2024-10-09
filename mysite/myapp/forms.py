@@ -12,3 +12,14 @@ class AgregarForm(forms.ModelForm):
         widgets = {
             "fecha": forms.SelectDateWidget(years=range(1600, date.today().year))
         }
+
+
+class UpdateImg(forms.ModelForm):
+    class Meta:
+        model= Agregar
+        fields= [ "Imagen"]
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model= Agregar
+        fields= ["descripcion"]
