@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar pieza</title>
+</head>
+<body>
+    
+    <h1>¿Estas seguro de querer eliminar {{pieza.titulo}}?</h1>
+
+    <form method="POST" action="">
+        
+        {% csrf_token %}
+
+        <a href="{% url 'listado_piezas' %}">Cancelar</a>
+        <input type="submit" value="Eliminar">
+    </form>
+</body>
+</html>

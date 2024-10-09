@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import home, agregar, detalle_pieza, listado_piezas, actualizar_img, actualizar_desc
+from .views import home, agregar, detalle_pieza, listado_piezas, actualizar_desc, actualizar_img, eliminar_pieza
 
 ###
 
@@ -11,6 +11,7 @@ urlpatterns =[
     path('pieza/<int:id>/', detalle_pieza, name='detalle_pieza'),  # Nueva ruta
     path('listado-piezas/', listado_piezas, name="listado_piezas"),
     path('actualizar-img/<id>/', actualizar_img , name="actualizar_img"),
-    path('actualizar_desc/<id>/', actualizar_desc, name='actualizar_desc')
+    path('actualizar-desc/<id>/', actualizar_desc, name='actualizar_desc'),
+    path('eliminar-pieza/<id>/', eliminar_pieza, name='eliminar_pieza'),
    
 ]

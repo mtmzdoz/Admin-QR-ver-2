@@ -3,7 +3,8 @@
     {% csrf_token %}
     {{form }}
 
-    <button type="submit" class="button">Editar</button> <button type="reset" class="button">Cancelar</button>
+    <button type="submit" class="button">Editar</button> <a href="{% url 'listado_piezas' %}">Cancelar</a>
+</form>
 </form>
 
 

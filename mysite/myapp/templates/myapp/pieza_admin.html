@@ -1,6 +1,6 @@
 
 
-<a href="/agregar">Agregar elemento patrimonial</a>
+<a href="{% url 'agregar' %}">Agregar elemento patrimonial</a>
 
 {% block content %}
 
@@ -16,8 +16,9 @@
     <tr>
         <td>{{ e.titulo | title }}</td>
         <td>
-            <a href="{% url 'actualizar_desc' e.id %}">Editar descripcion</a>
+            <a href="{% url 'actualizar_desc' e.id %}" class="button">Editar descripcion</a>
             <a href="{% url 'actualizar_img' e.id %}">Editar imagen</a>
+            <a href="{% url 'eliminar_pieza' e.id %}">Eliminar</a>
             
 
         </td>
