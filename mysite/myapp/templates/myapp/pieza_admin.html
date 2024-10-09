@@ -1,0 +1,28 @@
+
+
+<a href="/agregar">Agregar elemento patrimonial</a>
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>Nombre pieza</th>
+        <th>Opciones</th>
+        
+
+    </tr>
+    {% for e in elemento %}
+
+    <tr>
+        <td>{{ e.titulo | title }}</td>
+        <td>
+            <a href="{% url 'actualizar_pieza' e.id %}">Editar</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}
