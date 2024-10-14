@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso al sistema</title>
+</head>
+<body>
+    <div class="container">
+        <div class="rov">
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="card-body">
+                    <h2>Ingresa tus credendiales</h2>
+                    <hr>
+                    <form action="" method="post">
+                       {% csrf_token %}
+                       {{ form }} 
+                       <input type="submit" value="ingresar">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
