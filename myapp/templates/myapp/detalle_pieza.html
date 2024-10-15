@@ -10,7 +10,9 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="{{ pieza.Imagen.url }}" class="d-block w-100" alt="{{ pieza.titulo }}">
+            
           </div>
+          
           <div class="carousel-item">
             <img src="..." class="d-block w-100" alt="...">
           </div>
@@ -33,11 +35,16 @@
             <img src="{{ pieza.Imagen.url }}" class="img-fluid rounded-start" alt="{{ pieza.titulo }}">
           </div>
           <div class="col-md-8">
-            <div class="card-body">
+            <div class="card-body"> 
+              <a href= "{% url 'actualizar_img' pieza.id %}" class="btn btn-primary">Editar Imagen</a>
               <h5 class="card-title">{{ pieza.titulo }}</h5>
-              <p class="card-text">Descripción: {{ pieza.descripcion }}</p>
+              <p class="card-text">Descripción: {{ pieza.descripcion }}</p> 
               <p class="card-text"><small class="text-body-secondary">Autor: {{ pieza.autor }}</small></p>
               <p class="card-text"><small class="text-body-secondary">Fecha: {{ pieza.fecha }}</small></p>
+              <a href= "{% url 'actualizar_datos' pieza.id %}" class="btn btn-primary">Editar Informacion</a>
+              <br>
+              <br>
+              <a href="{% url 'listado_piezas' %}" class="btn btn-primary">Cancelar</a> <a href= "{% url 'eliminar_pieza' pieza.id %}" class="btn btn-primary">Eliminar Pieza</a>
             </div>
           </div>
         </div>

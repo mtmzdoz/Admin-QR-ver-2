@@ -71,7 +71,7 @@ def actualizar_img(request, id):
     
     return render(request, 'myapp/Pieza/modificar.html', data)
 
-def actualizar_desc(request, id):
+def actualizar_datos(request, id):
     pieza= get_object_or_404(Agregar, id=id)
 
     data = {

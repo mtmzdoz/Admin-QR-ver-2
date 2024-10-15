@@ -6,22 +6,14 @@
 <table>
     <tr>
         <th>Nombre pieza</th>
-        <th>Opciones</th>
         
 
     </tr>
     {% for e in elemento %}
 
     <tr>
-        <td>{{ e.titulo | title }}</td>
-        <td>
-            <div class="btn-group">
-                <a href= "{% url 'actualizar_desc' e.id %}" class="btn btn-primary">Editar Informacion</a>
-                <a href= "{% url 'actualizar_img' e.id %}" class="btn btn-primary">Editar Imagen</a>
-                <a href= "{% url 'eliminar_pieza' e.id %}" class="btn btn-primary">Eliminar Pieza</a>
-              </div>
+        <td> <a href= "{% url 'detalle_pieza' e.id %}" class="btn btn-primary">{{ e.titulo | title }}</a></td>
 
-        </td>
     </tr>
 
     {% endfor %}
