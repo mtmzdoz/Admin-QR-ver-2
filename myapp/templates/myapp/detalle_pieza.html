@@ -40,6 +40,7 @@
               <h5 class="card-title">{{ pieza.titulo }}</h5>
               <p class="card-text">Descripción: {{ pieza.descripcion }}</p> 
               <p class="card-text"><small class="text-body-secondary">Autor: {{ pieza.autor }}</small></p>
+              <p class="card-text"><small class="text-body-secondary">Tipo de pieza: {{ pieza.get_pieza_display }}</small></p>
               <p class="card-text"><small class="text-body-secondary">Fecha: {{ pieza.fecha }}</small></p>
               <a href= "{% url 'actualizar_datos' pieza.id %}" class="btn btn-primary">Editar Informacion</a>
               <br>
