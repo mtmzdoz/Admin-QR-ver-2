@@ -43,6 +43,23 @@
         <a href="#" class="btn btn-outline-primary ">Eliminar Pieza</a>
         <a href="{% url 'agregar' %}" class="btn btn-outline-primary">Agregar Pieza</a>
         <a href="#" class="btn btn-outline-primary">Editar pieza</a>
+        {% if user.is_authenticated %}
+       
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Cerrar sesión</button>
+        </form>
+        
+          <a href="#">{{ user.username }}</a>
+        
+        {% else %}
+      
+          <a href="{% url 'login' %}">Iniciar sesión</a>
+        
+          <a href="{% url 'registro' %}">Registrate</a>
+        
+        </div>
+        {% endif %}
       </div>
     </div>
 </div>

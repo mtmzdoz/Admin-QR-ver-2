@@ -9,6 +9,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL= '/' #Para cuando se inicie/cierre sesion rediriga a home
+LOGOUT_REDIRECT_URL= '/'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

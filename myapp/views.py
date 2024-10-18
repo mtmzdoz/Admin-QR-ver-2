@@ -1,15 +1,18 @@
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 import qrcode  # Importa la librería de qrcode
-from .forms import AgregarForm, UpdateImg, UpdateForm
+from .forms import AgregarForm, UpdateImg, UpdateForm, CustomUserCreationForm
 from .models import Agregar
 import os
+from django.contrib.auth import authenticate, login, logout#Permite autenticar el usuario
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     inicio = 'myapp/home.html'
     return render(request, inicio)
 
-
+@login_required(login_url="accounts/login/")
 def agregar(request):
     data = {
         'form': AgregarForm()
@@ -93,3 +96,25 @@ def eliminar_pieza(request, id):
         pieza.delete()
         return redirect(to="listado_piezas")
     return render(request, 'myapp/Pieza/eliminar.html', {'pieza': pieza})
+
+def registro(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == 'POST':
+        formulario= CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()  
+            user= authenticate(username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
+            login(request,user) #queda logeado
+            messages.success(request, "Te has registrado correctamente")
+            return redirect(to="home")
+
+        data["form"] = formulario
+    
+    return render(request, 'registration/registro.html', data)
+
+def logoutUser(request):
+    logout(request)
+    return redirect(to='home')
