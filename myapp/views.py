@@ -6,14 +6,21 @@ from .models import Agregar
 import os
 from django.contrib.auth import authenticate, login, logout#Permite autenticar el usuario
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required, permission_required 
+from .decorators import user_iniciado #permisos usuarios
+
 
 def home(request):
     inicio = 'myapp/home.html'
     return render(request, inicio)
 
-@login_required(login_url="accounts/login/")
+ 
+#redirige directamente al login
+@permission_required('myapp.view_agregar')
+@login_required(login_url="/accounts/login/")
 def agregar(request):
+
     data = {
         'form': AgregarForm()
     }
@@ -44,10 +51,14 @@ def agregar(request):
 
     return render(request, 'myapp/Pieza/agregar.html', data)
 
+@permission_required('myapp.view_articulo')
+@login_required(login_url="/accounts/login/")
 def detalle_pieza(request, id):
     pieza = get_object_or_404(Agregar, id=id)
     return render(request, 'myapp/detalle_pieza.html', {'pieza': pieza})
 
+@permission_required('myapp.view_articulo')
+@login_required(login_url="/accounts/login/")
 def listado_piezas(request):
     elemento= Agregar.objects.all()
 
@@ -56,6 +67,8 @@ def listado_piezas(request):
     }
     return render(request, 'myapp/pieza_admin.html', data)
 
+@permission_required('myapp.view_imagen')
+@login_required(login_url="/accounts/login/")
 def actualizar_img(request, id):
     pieza= get_object_or_404(Agregar, id=id)
 
@@ -74,6 +87,8 @@ def actualizar_img(request, id):
     
     return render(request, 'myapp/Pieza/modificar.html', data)
 
+@permission_required('myapp.view_imagen')
+@login_required(login_url="/accounts/login/")
 def actualizar_datos(request, id):
     pieza= get_object_or_404(Agregar, id=id)
 
@@ -90,6 +105,9 @@ def actualizar_datos(request, id):
     
     return render(request, 'myapp/Pieza/modificar.html', data)
 
+
+@permission_required('myapp.delete_articulo')
+@login_required(login_url="/accounts/login/")
 def eliminar_pieza(request, id):
     pieza= get_object_or_404(Agregar, id=id)
     if request.method== 'POST':
@@ -97,6 +115,12 @@ def eliminar_pieza(request, id):
         return redirect(to="listado_piezas")
     return render(request, 'myapp/Pieza/eliminar.html', {'pieza': pieza})
 
+
+
+
+
+
+@user_iniciado
 def registro(request):
     data = {
         'form': CustomUserCreationForm()
@@ -105,8 +129,20 @@ def registro(request):
     if request.method == 'POST':
         formulario= CustomUserCreationForm(data=request.POST)
         if formulario.is_valid():
-            formulario.save()  
+            user= formulario.save()  
             user= authenticate(username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
+          
+            email = formulario.cleaned_data['email']
+            dominio_mail= email.split('@')[-1]
+            if dominio_mail == 'gmail.com':
+                group = Group.objects.get(name='Usuario')
+            elif dominio_mail == 'usm.cl':
+                group = Group.objects.get(name='Admin')
+            else:
+                group = Group.objects.get(name='Usuario')
+            user.groups.add(group)
+            
+
             login(request,user) #queda logeado
             messages.success(request, "Te has registrado correctamente")
             return redirect(to="home")

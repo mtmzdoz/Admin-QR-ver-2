@@ -30,6 +30,9 @@ class UpdateForm(forms.ModelForm):
         }
 
 class CustomUserCreationForm(UserCreationForm): #creamos un form custom a partir del que django nos da Usercreationform
+    email=forms.EmailField(required=True)
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name","email","password1", "password2"]
+    
+ 

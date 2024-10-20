@@ -40,9 +40,12 @@
         </div>
       </nav>
       <div class="btn-group">
-        <a href="#" class="btn btn-outline-primary ">Eliminar Pieza</a>
+        {% if perms.myapp.view_agregar %}
         <a href="{% url 'agregar' %}" class="btn btn-outline-primary">Agregar Pieza</a>
-        <a href="#" class="btn btn-outline-primary">Editar pieza</a>
+        {% endif %}
+        {% if perms.myapp.view_articulo %}
+        <a href="{% url 'listado_piezas' %}" class="btn btn-outline-primary">Listado piezas</a>
+        {% endif %}
         {% if user.is_authenticated %}
        
         <form method="post" action="{% url 'logout' %}">
