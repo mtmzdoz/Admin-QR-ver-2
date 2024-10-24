@@ -13,7 +13,10 @@ from .decorators import user_iniciado #permisos usuarios
 
 def home(request):
     inicio = 'myapp/home.html'
-    return render(request, inicio)
+    piezas = Agregar.objects.all()  # Obtener todas las piezas
+    return render(request, 'myapp/home.html', {'piezas': piezas})
+
+    
 
  
 #redirige directamente al login
