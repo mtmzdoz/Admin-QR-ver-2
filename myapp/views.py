@@ -54,8 +54,7 @@ def agregar(request):
 
     return render(request, 'myapp/Pieza/agregar.html', data)
 
-#@permission_required('myapp.view_articulo')
-#@login_required(login_url="/accounts/login/")
+
 def detalle_pieza(request, id):
     pieza = get_object_or_404(Agregar, id=id)
     return render(request, 'myapp/detalle_pieza.html', {'pieza': pieza})
@@ -108,19 +107,25 @@ def actualizar_datos(request, id):
     
     return render(request, 'myapp/Pieza/modificar.html', data)
 
-
 @permission_required('myapp.delete_articulo')
 @login_required(login_url="/accounts/login/")
 def eliminar_pieza(request, id):
     pieza= get_object_or_404(Agregar, id=id)
+    img = Agregar.objects.get(id=id)
     if request.method== 'POST':
         pieza.delete()
+        img.Imagen.delete()
+        qr_filename = f'qr_{id}.png'  # id respectivo del QR, ej: qr_32.png
+        qr_path = os.path.join(settings.MEDIA_ROOT, 'qr_codes', qr_filename) # Para obtener la ruta del qr
+        # Verificar si el archivo QR existe y eliminarlo
+        if os.path.exists(qr_path):
+            os.remove(qr_path)
+        
         return redirect(to="listado_piezas")
+    
+        
+    
     return render(request, 'myapp/Pieza/eliminar.html', {'pieza': pieza})
-
-
-
-
 
 
 @user_iniciado
