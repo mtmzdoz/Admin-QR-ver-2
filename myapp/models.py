@@ -31,7 +31,6 @@ class Agregar(models.Model):
     descripcion= models.TextField(max_length=255) #TextField para textos largos
     fecha= models.DateField()
     Imagen= models.ImageField(upload_to="imagenes", null=True)
-    codigo_qr = models.ImageField(upload_to='qr_codes', blank=True, null=True)  # Para almacenar el QR
     
 
     

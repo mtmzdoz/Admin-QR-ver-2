@@ -47,11 +47,11 @@
               <p class="card-text"><small class="text-body-secondary">Fecha: {{ pieza.fecha }}</small></p>
               {% if perms.myapp.view_agregar %}
               <a href= "{% url 'actualizar_datos' pieza.id %}" class="btn btn-primary">Editar Informacion</a>
-              <img src="{{ pieza.codigo_qr.url }}" class="img-fluid rounded-start" alt="{{ pieza.titulo }}" width="500" wide="500">
+              <img src="{{ pieza.qr_codes.url }}" class="img-fluid rounded-start" alt="{{ pieza.titulo }}" width="500" wide="500">
               {% endif %}
               <br>
               <br>
-              {% if perms.myapp.view_delete %}
+              {% if perms.myapp.delete_articulo %}
               <a href="{% url 'listado_piezas' %}" class="btn btn-primary">Cancelar</a> <a href= "{% url 'eliminar_pieza' pieza.id %}" class="btn btn-primary">Eliminar Pieza</a>
               {% endif %}
             </div>
