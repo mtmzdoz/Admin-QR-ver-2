@@ -10,14 +10,29 @@ opciones_pieza= [
     [4, "Otro"]
 ]
 
+opciones_ubicacion=[
+    [0, "Salón Gabriela Mistral"],
+    [1, "Hemeroteca"],
+    [2, "Salón Medina"],
+    [3, "Sala Ercilla"],
+    [4, "Salón Camilo Henríquez"],
+    [5, "Sector Alameda 1er piso"],
+    [6, "Sector Alameda 2do piso"],
+    [7, "Sector Moneda 1er piso"],
+    [8, "Sector Moneda 2do piso"],
+
+]
 class Agregar(models.Model):
     #decir que tipo de dato estamos introduciendo 
     titulo= models.CharField(max_length=100) #CharField para strings o textos pequeños
     autor= models.CharField(max_length=30)
+    ubicacion= models.IntegerField(choices=opciones_ubicacion, null=True)
     pieza= models.IntegerField(choices= opciones_pieza)
     descripcion= models.TextField(max_length=255) #TextField para textos largos
     fecha= models.DateField()
     Imagen= models.ImageField(upload_to="imagenes", null=True)
+    codigo_qr = models.ImageField(upload_to='qr_codes', blank=True, null=True)  # Para almacenar el QR
+    
 
     
     def __str__(self):

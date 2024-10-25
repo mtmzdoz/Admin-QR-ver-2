@@ -54,8 +54,8 @@ def agregar(request):
 
     return render(request, 'myapp/Pieza/agregar.html', data)
 
-@permission_required('myapp.view_articulo')
-@login_required(login_url="/accounts/login/")
+#@permission_required('myapp.view_articulo')
+#@login_required(login_url="/accounts/login/")
 def detalle_pieza(request, id):
     pieza = get_object_or_404(Agregar, id=id)
     return render(request, 'myapp/detalle_pieza.html', {'pieza': pieza})
