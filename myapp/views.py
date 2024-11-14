@@ -28,7 +28,7 @@ def agregar(request):
         formulario = AgregarForm(request.POST, request.FILES)
         if formulario.is_valid():
             nueva_pieza = formulario.save()
-            url_pieza = f"http://127.0.0.1:8000/pieza/{nueva_pieza.id}/"
+            url_pieza = f"https://AdminQR.pythonanywhere.com/pieza/{nueva_pieza.id}/"
             qr_img = qrcode.make(url_pieza)
             qr_filename = f'qr_{nueva_pieza.id}.png'
             qr_path = os.path.join(settings.MEDIA_ROOT, 'qr_codes', qr_filename)
