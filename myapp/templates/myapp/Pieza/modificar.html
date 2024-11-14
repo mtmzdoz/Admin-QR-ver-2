@@ -1,0 +1,13 @@
+<h2>Editar pieza</h2>
+<form action="" class="agregar" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form }}
+
+    <button type="submit" class="button">Editar</button> <a href="{% url 'listado_piezas' %}">Cancelar</a>
+</form>
+</form>
+
+
+{% if mensaje %}
+    <p>{{ mensaje }}</p>
+{% endif %}

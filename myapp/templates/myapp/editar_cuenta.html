@@ -1,0 +1,34 @@
+<br>
+<h1>Editar Cuenta</h1>
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body class="{% block body_class %}editar_cuenta{% endblock %}">
+    <form action="" class="registro" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }} <!-- Renderiza el formulario como párrafos, o usa {{ form }} para el formato predeterminado -->
+        <div class="mb-3">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" class="form-control" value="{{ form.password.value }}">
+            <button type="button" onclick="togglePassword()" class="btn btn-secondary">Ver/Ocultar Contraseña</button>
+        </div>
+
+        <button type="submit" class="button">Guardar cambios</button>
+        <a href="{% url 'home' %}">Cancelar</a>
+    </form>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
+        <button type="submit" class="button">Guardar cambios</button>
+        <a href="{% url 'home' %}">Cancelar</a>
+    </form>
+</body>
