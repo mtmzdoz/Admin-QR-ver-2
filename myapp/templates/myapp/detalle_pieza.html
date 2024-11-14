@@ -61,24 +61,25 @@
                         <li><strong>Tipo de pieza:</strong> {{ pieza.get_pieza_display }}</li>
                         <li><strong>Fecha:</strong> {{ pieza.fecha }}</li>
                     </ul>
-                    
-                    <div class="mt-4 d-flex flex-wrap gap-2">
+                 <div class="mt-4 d-flex flex-wrap gap-2">
                         {% if perms.myapp.view_agregar %}
                             <a href="{% url 'actualizar_img' pieza.id %}" class="btn btn-primary-custom btn-custom">Editar Imagen</a>
                             <a href="{% url 'actualizar_datos' pieza.id %}" class="btn btn-primary-custom btn-custom">Editar Información</a>
+                            <a href="{% url 'listado_piezas' %}" class="btn btn-secondary-custom btn-custom">Volver al listado</a>
                         {% endif %}
-                        <a href="{% url 'listado_piezas' %}" class="btn btn-secondary-custom btn-custom">Volver al listado</a>
+            
                         <a href="{% url 'home' %}" class="btn btn-secondary-custom btn-custom">Ir a la Página Principal</a>
-                        {% if perms.myapp.delete_articulo %}
+                        {% if perms.myapp.delete_agregar %}
                             <button onclick="eliminar_pieza({{ pieza.id }})" class="btn btn-danger-custom btn-custom">Eliminar Pieza</button>
                         {% endif %}
                     </div>
-
-                    {% if pieza.codigo_qr %}
-                        <div class="mt-4">
-                            <img src="{{ pieza.codigo_qr.url }}" class="img-thumbnail" alt="Código QR de {{ pieza.titulo }}" style="width: 150px; height: 150px;">
-                        </div>
-                    {% endif %}
+                        {% if perms.myapp.view_agregar %}
+                            {% if pieza.codigo_qr %}
+                               <div class="mt-4">
+                                   <img src="{{ pieza.codigo_qr.url }}" class="img-thumbnail" alt="Código QR de {{ pieza.titulo }}" style="width: 150px; height: 150px;">
+                                </div>
+                            {% endif %}
+                        {% endif %}
                 </div>
             </div>
         </div>
