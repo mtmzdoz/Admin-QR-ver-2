@@ -84,8 +84,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # This is where collected static files w
 STATIC_URL = '/static/'  
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Adjusted path to where your static files are located
+    BASE_DIR / "static",
 ]
+
 
 # Archivos de medios (para imágenes, PDFs, etc.)
 MEDIA_URL = '/media/'

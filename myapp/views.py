@@ -1,6 +1,9 @@
 from django.conf import settings
+from googletrans import Translator
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 import qrcode
+from datetime import date
 from .forms import AgregarForm, UpdateImg, UpdateForm, CustomUserCreationForm, UpdateCuenta
 from .models import Agregar
 import os
@@ -27,6 +30,7 @@ def agregar(request):
     if request.method == 'POST':
         formulario = AgregarForm(request.POST, request.FILES)
         if formulario.is_valid():
+            
             nueva_pieza = formulario.save()
             url_pieza = f"https://AdminQR.pythonanywhere.com/pieza/{nueva_pieza.id}/"
             qr_img = qrcode.make(url_pieza)
@@ -135,3 +139,12 @@ def editar_cuenta(request):
             return redirect(to="home")
         data["form"] = formulario
     return render(request, 'myapp/editar_cuenta.html', data)
+
+def translate_text(request):
+    if request.method == "GET":
+        text = request.GET.get('text', '')
+        lang = request.GET.get('lang', 'es')
+        translator = Translator()
+        translated = translator.translate(text, dest=lang)
+        return JsonResponse({"translated_text": translated.text})
+    

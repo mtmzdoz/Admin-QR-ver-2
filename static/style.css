@@ -47,7 +47,7 @@
     border-radius: 8px; /* Bordes redondeados */
     
 } 
-.background .agregar {
+.agregar .container{
     background-image: url("{% static 'path_to_image/2pisof.jpg' %}");
     background-size: cover;
     background-position: center;
@@ -71,13 +71,17 @@
     height: 200px;
 }
 .card-title {
-    font-family: 'Playfair Display', serif; 
-    font-size: 1.8rem; 
-    font-weight: 700;
-    color: #34495e; 
+    font-family: 'Merriweather', serif; /* Fuente elegante y legible */
+    font-size: 2rem; /* Tamaño destacado */
+    font-weight: 600; /* Negrita moderada */
+    color: #2c3e50; /* Tono azul oscuro para elegancia */
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px; /* Espaciado ligero entre letras */
+    text-transform: capitalize; /* Convierte solo la primera letra de cada palabra en mayúscula */
 }
+
+
+
 
 .card-text {
     font-family: 'Merriweather', serif; 
@@ -85,6 +89,7 @@
     color: #4a4a4a; 
     line-height: 1.6;
 }
+
 
 
 

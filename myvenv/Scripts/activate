@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\YASITCOMPUTER\OneDrive\Desktop\Admin-QR-ver-2-main\myvenv"
+VIRTUAL_ENV="C:\Users\anton\OneDrive\Music\Admin-QR-ver-2\myvenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -13,4 +13,6 @@ urlpatterns =[
     path('registro/', registro, name='registro'),
     path('pieza/suspender/<int:id>/', suspender, name='suspender'),
     path('editar_cuenta/', editar_cuenta, name='editar_cuenta'),
+    path('translate/', views.translate_text, name='translate_text'),
 ]
+

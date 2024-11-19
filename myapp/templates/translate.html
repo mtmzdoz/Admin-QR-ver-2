@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor</title>
+</head>
+<body>
+    <h1>Traducir Texto</h1>
+    <form method="get" action="{% url 'translate_text' %}">
+        <label for="text">Texto a traducir:</label>
+        <input type="text" id="text" name="text" placeholder="Escribe aquí tu texto">
+
+        <label for="lang">Idioma:</label>
+        <select id="lang" name="lang">
+            <option value="es">Español</option>
+            <option value="en">
