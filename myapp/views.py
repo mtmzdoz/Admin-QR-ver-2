@@ -12,6 +12,8 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
 from .decorators import user_iniciado
+from django.core.paginator import Paginator
+from django.http import Http404 
 
 def home(request):
     query = request.GET.get('query')
@@ -53,7 +55,17 @@ def detalle_pieza(request, id):
 @login_required(login_url="/accounts/login/")
 def listado_piezas(request):
     elemento = Agregar.objects.all()
-    data = {'elemento': elemento}
+    page = request.GET.get('page', 1)
+
+    try: 
+        paginator = Paginator(elemento, 5)
+        elemento= paginator.page(page)
+    except:
+        raise Http404
+    
+    data = {'entity': elemento,
+            'paginator': paginator
+            }
     return render(request, 'myapp/pieza_admin.html', data)
 
 @permission_required('myapp.view_imagen')

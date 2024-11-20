@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
     <div id="google_translate_element" class="google-translate-container"></div>
 
     <style>
@@ -25,6 +25,11 @@
             display: none !important; /* Ocultar el banner de Google */
         }
 
+        /* Ajustar la lista desplegable de idiomas */
+        .select.goog-te-combo {
+            max-height: 300px; /* Establece un alto máximo */
+            overflow-y: auto;  /* Permite scroll vertical */
+        }
         .goog-te-combo {
             font-family: 'Roboto', sans-serif;
             font-size: 1rem;
@@ -32,24 +37,29 @@
             padding: 0.5rem;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
         }
 
         .goog-te-combo:hover {
             background-color: #e9ecef;
         }
 
+
         .card-title {
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.5rem; 
-            font-weight: 700; 
-            color: #000000; 
-            text-align: center; 
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; /* Tamaño destacado */
+            font-weight: 700; /* Negrita moderada */
+            letter-spacing: 0.5px; /* Espaciado ligero entre letras */
+            color: #000000;
+            text-align: center;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
 
         .card-text {
-            font-family: 'Roboto', sans-serif; 
-            font-size: 1.1rem; 
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
             color: #34495e;
             line-height: 1.6;
         }
@@ -65,6 +75,10 @@
             background-color: #1abc9c;
             color: white;
             border: none;
+        }
+        .btn-danger-custom {
+            background-color: #dc3545;
+            color: white;
         }
 
         .btn-primary-custom:hover {
@@ -82,78 +96,92 @@
             background-color: #7f8c8d;
             box-shadow: 0px 4px 8px rgba(149, 165, 166, 0.4);
         }
+        .btn-danger-custom:hover {
+            background-color: #dc3545;
+            box-shadow: 0px 4px 8px rgba(146, 3, 3, 0.4);
+            
+        }
     </style>
     <script type="text/javascript">
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+            new google.translate.TranslateElement({ pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
-<body class="{% block body_class %}detalle_pieza{% endblock %}">
 
-<div class="container mt-5">
-    <div class="card shadow-lg border-0 rounded">
-        <div class="row g-0">
-            <div class="col-md-5">
-                <img src="{{ pieza.Imagen.url }}" class="img-fluid rounded-start" alt="{{ pieza.titulo }}" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            
-            <div class="col-md-7">
-                <div class="card-body">
-                    <h2 class="card-title">{{ pieza.titulo }}</h2>
-                    <p class="card-text text-muted">{{ pieza.descripción }}</p>
-                    
-                    <ul class="list-unstyled mt-3">
-                        <li><strong>Autor:</strong> {{ pieza.autor }}</li>
-                        <li><strong>Ubicación:</strong> {{ pieza.get_ubicación_display }}</li>
-                        <li><strong>Tipo de pieza:</strong> {{ pieza.get_pieza_display }}</li>
-                        <li><strong>Fecha:</strong> {% if pieza.día %}{{ pieza.día }}{% else %}-{% endif %}/{% if pieza.mes %}{{ pieza.get_mes_display }}{% else %}-{% endif %}/{% if pieza.año %}{{ pieza.año }}{% else %}-{% endif %}</li>
-                    </ul>
-                    <div class="mt-4 d-flex flex-wrap gap-2">
-                        {% if perms.myapp.view_agregar %}
-                            <a href="{% url 'actualizar_img' pieza.id %}" class="btn btn-primary-custom btn-custom">Editar Imagen</a>
-                            <a href="{% url 'actualizar_datos' pieza.id %}" class="btn btn-primary-custom btn-custom">Editar Información</a>
-                            <a href="{% url 'listado_piezas' %}" class="btn btn-secondary-custom btn-custom">Volver al listado</a>
-                        {% endif %}
-                        <a href="{% url 'home' %}" class="btn btn-secondary-custom btn-custom">Ir a la Página Principal</a>
-                        {% if perms.myapp.delete_agregar %}
-                            <button onclick="eliminar_pieza({{ pieza.id }})" class="btn btn-danger-custom btn-custom">Eliminar Pieza</button>
+<body>
+
+    <div class="container mt-5">
+        <div class="card shadow-lg border-0 rounded">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img src="{{ pieza.Imagen.url }}" class="img-fluid rounded-start" alt="{{ pieza.titulo }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ pieza.titulo }}</h2>
+                        <p class="card-text text-muted">{{ pieza.descripción }}</p>
+
+                        <ul class="list-unstyled mt-3">
+                            <li><strong>Autor:</strong> {{ pieza.autor }}</li>
+                            <li><strong>Ubicación:</strong> {{ pieza.get_ubicación_display }}</li>
+                            <li><strong>Tipo de pieza:</strong> {{ pieza.get_pieza_display }}</li>
+                            <li><strong>Fecha:</strong> {% if pieza.día %}{{ pieza.día }}{% else %}-{% endif %}/{% if pieza.mes %}{{ pieza.get_mes_display }}{% else %}-{% endif %}/{% if pieza.año %}{{pieza.año }}{% else %}-{% endif %}</li>
+                        </ul>
+                        <div class="mt-4 d-flex flex-wrap gap-2">
+                            {% if perms.myapp.view_agregar %}
+                            <a href="{% url 'actualizar_img' pieza.id %}"
+                                class="btn btn-primary-custom btn-custom">Editar Imagen</a>
+                            <a href="{% url 'actualizar_datos' pieza.id %}"
+                                class="btn btn-primary-custom btn-custom">Editar Información</a>
+                            <a href="{% url 'listado_piezas' %}" class="btn btn-secondary-custom btn-custom">Volver al
+                                listado</a>
+                            {% endif %}
+                            <a href="{% url 'home' %}" class="btn btn-secondary-custom btn-custom">Ir a la Página
+                                Principal</a>
+                            {% if perms.myapp.delete_agregar %}
+                            <button onclick="eliminar_pieza({{ pieza.id }})"
+                                class="btn btn-danger-custom btn-custom">Eliminar Pieza</button>
+                            {% endif %}
+                        </div>
+                        {% if perms.myapp.view_agregar and pieza.codigo_qr %}
+                        <div class="mt-4 text-center">
+                            <img src="{{ pieza.codigo_qr.url }}" class="img-thumbnail"
+                                alt="Código QR de {{ pieza.titulo }}" style="width: 150px; height: 150px;">
+                        </div>
                         {% endif %}
                     </div>
-                    {% if perms.myapp.view_agregar and pieza.codigo_qr %}
-                        <div class="mt-4 text-center">
-                            <img src="{{ pieza.codigo_qr.url }}" class="img-thumbnail" alt="Código QR de {{ pieza.titulo }}" style="width: 150px; height: 150px;">
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function eliminar_pieza(id) {
-        Swal.fire({
-            title: "¿Estás seguro de querer eliminar {{ pieza.titulo }}?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            cancelButtonText: "No, cancelar",
-            confirmButtonText: "Sí, eliminar",
-            reverseButtons: true,
-            confirmButtonColor: "#dc3545"
-        }).then(function(result) {
-            if(result.isConfirmed) {
-                window.location.href = "/eliminar-pieza/" + id + "/";
-            }
-        });
-    }
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function eliminar_pieza(id) {
+            Swal.fire({
+                title: "¿Estás seguro de querer eliminar {{ pieza.titulo }}?",
+                text: "Esta acción no se puede deshacer",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonText: "No, cancelar",
+                confirmButtonText: "Sí, eliminar",
+                reverseButtons: true,
+                confirmButtonColor: "#dc3545"
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    window.location.href = "/eliminar-pieza/" + id + "/";
+                }
+            });
+        }
+    </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
 
+</html>

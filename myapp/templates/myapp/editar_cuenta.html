@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +12,18 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: #f4f4f9;
             font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Esto centra el contenido verticalmente en toda la pantalla */
         }
 
         .container {
             max-width: 500px;
             margin-top: 50px;
-            background: #ffffff;
+            background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px 30px;
             border-radius: 10px;
@@ -80,13 +85,14 @@
     </style>
     <title>Editar Cuenta</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Editar Cuenta</h1>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-           
+
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
@@ -102,4 +108,5 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
