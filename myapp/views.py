@@ -28,25 +28,40 @@ def home(request):
 @permission_required('myapp.view_agregar')
 @login_required(login_url="/accounts/login/")
 def agregar(request):
-    data = {'form': AgregarForm()}
     if request.method == 'POST':
         formulario = AgregarForm(request.POST, request.FILES)
         if formulario.is_valid():
-            
+            # Guardar nueva pieza
             nueva_pieza = formulario.save()
+            
+            # Generar URL y QR
             url_pieza = f"https://AdminQR.pythonanywhere.com/pieza/{nueva_pieza.id}/"
             qr_img = qrcode.make(url_pieza)
             qr_filename = f'qr_{nueva_pieza.id}.png'
             qr_path = os.path.join(settings.MEDIA_ROOT, 'qr_codes', qr_filename)
             qr_img.save(qr_path)
+            
+            # Actualizar la pieza con la ruta del QR
             nueva_pieza.codigo_qr = f"qr_codes/{qr_filename}"
             nueva_pieza.save()
-            data["mensaje"] = "Guardado y QR generado"
-            data["qr_url"] = os.path.join(settings.MEDIA_URL, 'qr_codes', qr_filename)
+            
+            # Preparar datos para la vista QR
+            qr_url = os.path.join(settings.MEDIA_URL, 'qr_codes', qr_filename)
+            mensaje = "Guardado y QR generado con éxito"
+            
+            # Redirigir a la vista del QR generado
+            return render(request, 'myapp/Pieza/qr_generado.html', {
+                'qr_url': qr_url,
+                'mensaje': mensaje,
+            })
         else:
-            data["form"] = formulario
+            # Si el formulario no es válido
+            data = {'form': formulario}
+            return render(request, 'myapp/Pieza/agregar.html', data)
+    
+    # Si la solicitud es GET
+    data = {'form': AgregarForm()}
     return render(request, 'myapp/Pieza/agregar.html', data)
-
 def detalle_pieza(request, id):
     pieza = get_object_or_404(Agregar, id=id)
     return render(request, 'myapp/detalle_pieza.html', {'pieza': pieza})
