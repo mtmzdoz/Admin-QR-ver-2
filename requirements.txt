@@ -1,4 +1,4 @@
 django
 qrcode[pil]
-pip install googletrans==4.0.0-rc1
-pip install google-translate-py
+googletrans==4.0.0-rc1
+google-translate-py
