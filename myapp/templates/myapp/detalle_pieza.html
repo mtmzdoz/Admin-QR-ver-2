@@ -91,7 +91,7 @@
             color: white;
             border: none;
         }
-
+        
         .btn-secondary-custom:hover {
             background-color: #7f8c8d;
             box-shadow: 0px 4px 8px rgba(149, 165, 166, 0.4);
@@ -138,12 +138,23 @@
                                 class="btn btn-primary-custom btn-custom">Editar Imagen</a>
                             <a href="{% url 'actualizar_datos' pieza.id %}"
                                 class="btn btn-primary-custom btn-custom">Editar Información</a>
+                                <form action="{% url 'suspender' pieza.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm {% if pieza.activo %} btn btn-danger-custom{% else %}btn btn-success{% endif %}">
+                                        {% if pieza.activo %}
+                                            Suspender
+                                        {% else %}
+                                            Activar
+                                        {% endif %}
+                                    </button>
+                                </form>
                             <a href="{% url 'listado_piezas' %}" class="btn btn-secondary-custom btn-custom">Volver al
                                 listado</a>
                             {% endif %}
                             <a href="{% url 'home' %}" class="btn btn-secondary-custom btn-custom">Ir a la Página
                                 Principal</a>
                             {% if perms.myapp.delete_agregar %}
+                            
                             <button onclick="eliminar_pieza({{ pieza.id }})"
                                 class="btn btn-danger-custom btn-custom">Eliminar Pieza</button>
                             {% endif %}
